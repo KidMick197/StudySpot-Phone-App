@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" 
+		  content="width=device-width, user-scalable=no, 
+		  initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+	<!-- The security content page restricting users on where they can go -->
+	<meta http-equiv="Content-Security-Policy" content="
+			default-src 	'self' data: gap: ws: file://* * 'unsafe-inline' 
+								https://*.gstatic.com 
+								https://*.phonegap.com
+								https://*.googleapis.com;
+			style-src 		'self' 'unsafe-inline'
+								https://fonts.googleapis.com; 
+			script-src  	'self' 'unsafe-inline' 'unsafe-eval' 
+								https://*.phonegap.com 
+								http://mysqljs.com
+								https://*.googleapis.com;
+		    font-src    	'self'
+		           				https://*.gstatic.com;								
+			media-src 		'self' blob: *;
+			img-src   		'self' data: *; 
+			connect-src 	* ;"/>	
+	
+	<link rel="stylesheet" type="text/css" href="./css/index.css" />
+	<link href="https://fonts.googleapis.com/css?family=Text+Me+One" rel="stylesheet">
+
+	<title>StudySpot</title>
+
+	<script src="http://mysqljs.com/mysql.js"></script>
+
+
+</head>
+<body onload="initialize()">
+
+	<div id="headerDiv">
+	<button id="backButton" onclick="advancedPageBackClick()"><img id="backImg" src="https://img.icons8.com/ios/1600/back.png" alt="<"></button>
+		<h1>StudySpot</h1>
+		<img id="headerImg" src="https://greenrideco.com/wp-content/uploads/2017/03/google-location-icon-16.png" alt=" ">
+	</div>
+
+	<!-- this div will deplay the home or start page, which includes two buttons -->
+	<div id="homePageDiv" class="page">
+
+		<!-- contains the button that will take the user to the map page -->
+		<div id="findASpotDiv">
+			
+			<button id="homePageFindASpotButton" onclick="findASpotClick()">Find A Spot</button>
+
+		</div>
+
+		
+		<br><br><br>
+
+		<!-- contains the button that will take the user to the advanced search page -->
+		<div id="homePageAdvancedSearchDiv">
+
+			<button id="advancedSearch" onclick="advancedSearchClick()">Advanced Search</button>
+
+		</div>
+
+	</div>
+	
+	<!-- This div displays the find a spot details such as the input sections and the map display -->
+	<div id="studySpotMapDiv" class="page">
+		  
+		<div id="top-panel" class="autocomplete" style="width:300px;">
+    	<input id="myInput" type="text" name="myLocations" placeholder="Search">
+  		</div><button id="searchButton" onclick="locationDetials()">Search</button>
+    <div id="mapDiv"></div>
+    
+    <div id="bottom-panel">
+      <div id="inputs">
+     
+     <!-- Detail section providing details regarding the rooms and the distance from current location.  --> 
+    	<strong id="detailTitle">Room Detail</strong>
+     	<div id="details">~DETAILS OF ROOM~</div>
+    </div>
+    </div>
+
+	</div>
+
+	<!-- contains the advanced search div ("Page") which will let the user search for individual room characteristics -->
+	<div id="roomDetailsAdvancedSearchDiv" class="page">
+
+		<h2>Room Details</h2>
+
+		<!-- contains the list of checkboxes and other dropdowns for the user to use in the search -->
+		<div id="detailsList">
+
+			<!-- form will power the SQL query used in the app -->
+			<form  id="roomDetailsForm" action="" method="get">
+			<div id="checkBoxDiv">
+				<input id="computerCheckBox" type="checkbox">Computers<br>
+				<input id="deskCheckBox" type="checkbox">Desks & Chairs<br>
+				<input id="tutorsCheckBox" type="checkbox">Tutors<br>
+				<input id="wifiCheckBox" type="checkbox">Wifi<br>
+
+				<h3>Distance</h3>
+				
+				<!-- the radius in which the user wants to see the search -->
+				<select id="distanceDropDown">
+					<option value="0.2">0.2 Miles</option>
+					<option value="0.4">0.4 Miles</option>
+					<option value="0.6">0.6 Miles</option>
+					<option value="0.8">0.8 Miles</option>
+					<option value="1.0">1.0 Miles</option>
+				</select>
+
+				<br>
+
+				<h3>Size</h3>
+				
+				<!-- the size of the studyspot searched -->
+				<select id="sizeDropDown">
+					<option value="1-10 People">1-10 People</option>
+					<option value="10-20 People">10-20 People</option>
+					<option value="20-30 People">20-30 People</option>
+					<option value="30-40 People">30-40 People</option>
+				</select>
+				
+				<br>
+
+				<h3>Location</h3>
+				
+				<!-- whether the location is inside or outside, pertains mostly to ASU's campus -->
+				<select id="locationDropDown">
+					<option value="Inside">Inside</option>
+					<option value="Outside">Outside</option>
+				</select>	
+			</div>	
+			</form>
+
+			<br><br><br>
+			
+			<!-- search button for the advancedDiv page, will move to map if results are found -->
+			<button id="advancedSearchSubmit" onclick="advancedSearchLocateClick()">Locate</button>
+
+		</div>		
+
+
+	</div>
+
+	<script type="text/javascript" src="cordova.js"></script>
+	
+	<script type="text/javascript" src="./js/index.js"></script>
+</body>
+</html>
